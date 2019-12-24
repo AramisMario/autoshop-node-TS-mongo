@@ -1,0 +1,32 @@
+import express from 'express';
+import helmet from "helmet";
+import compression from "compression";
+import cors from "cors";
+class Server{
+
+    app:express.Application;
+
+    constructor(){
+        this.app = express();
+        this.config();
+    }
+
+    config(){
+        this.app.set('port',3000);
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({extended:false}));
+        this.app.use(helmet());
+        this.app.use(compression());
+        this.app.use(cors());
+    }
+
+    start(){
+        this.app.listen(this.app.get('port'),()=>{
+            console.log(`server runnig on port ${this.app.get('port')}`)
+        });
+    }
+}
+
+const server = new Server();
+
+export default server; 
