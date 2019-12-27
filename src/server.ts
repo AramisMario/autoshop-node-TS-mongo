@@ -3,7 +3,7 @@ import helmet from "helmet";
 import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
-const kill = require('kill-port')
+import customerRouter from "./routes/customerRoutes";
 class Server{
 
     app:express.Application;
@@ -11,6 +11,7 @@ class Server{
     constructor(){
         this.app = express();
         this.config();
+        this.routes();
     }
 
     config(){
@@ -29,6 +30,10 @@ class Server{
         this.app.use(helmet());
         this.app.use(compression());
         this.app.use(cors());
+    }
+
+    routes(){
+        this.app.use('/api/customers',customerRouter);   
     }
 
     start(){
