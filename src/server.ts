@@ -4,6 +4,7 @@ import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
 import customerRouter from "./routes/customerRoutes";
+import vehicleRouter from  "./routes/vehicleRoutes";
 class Server{
 
     app:express.Application;
@@ -21,7 +22,8 @@ class Server{
         mongoose.connect(MONGO_URI,{
             useCreateIndex: true,
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            useFindAndModify:false
         }).then(()=> console.log('db is connected'));
 
         this.app.set('port',3000);
@@ -33,7 +35,8 @@ class Server{
     }
 
     routes(){
-        this.app.use('/api/customers',customerRouter);   
+        this.app.use('/api/customers',customerRouter);
+        this.app.use('/api/vehicles',vehicleRouter);
     }
 
     start(){
