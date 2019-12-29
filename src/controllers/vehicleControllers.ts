@@ -7,27 +7,40 @@ class VehicleControllers{
     async saveRefvehicle(req:Request, res:Response){
         const {brand, bmodel} = req.body;
         const newRfv = new Refvehicle({brand,bmodel});
-        newRfv.setUrl();
-        const created = await newRfv.save();
+        const created = newRfv.customSave();
         res.json(created);
     }
 
     async registVehicle(req:Request, res:Response){
-        const {refUrl,licenseplate,customerUrl} = req.body;
-        const newVehicle = new Vehicles({licenseplate,refUrl});
-        try{
-        const newVh = await newVehicle.save();
+        const {brand, bmodel,licenseplate,customerUrl} = req.body;
+
         const customer = await Customers.findOne({url:customerUrl});
-            if (customer != null){
-                customer["vehicles"].push(newVh.id);
-                customer.save();
-             }
-            res.json({"message":"updated"});
-        }catch(error){
-            if (error.code === 11000){
-                res.send("entrada duplicada");
+        if (customer != null){
+
+            const refv = await Refvehicle.findOne({brand:brand, bmodel:bmodel});
+            let refUrl:String = "";
+            if (refv == null){
+                const newRfv =  new Refvehicle({brand,bmodel});
+                newRfv.customSave();
+                refUrl = newRfv.url;
+            }else{
+                refUrl = refv.url;
             }
-        }
+
+            const newVehicle = new Vehicles({licenseplate,refUrl});
+            try{
+                await newVehicle.save();
+            }catch(error){
+                res.json({"message":error.message,"custom":"el vehiculo ya existe"});
+             }
+
+            customer["vehicles"].push(newVehicle.id);
+            customer.save();
+            }else{
+                res.json({"message":"el usuario no existe"});
+            }
+
+        res.json({"message":"vehicle registered"});
     }
 
     async getVehicles(req:Request, res:Response){

@@ -4,7 +4,8 @@ interface IRefvehicle extends Document{
     brand:String,
     bmodel:String
     url:String,
-    setUrl():void
+    setUrl():void,
+    customSave():void
 }
 
 const refvechicleSchema = new Schema({
@@ -16,5 +17,11 @@ const refvechicleSchema = new Schema({
 refvechicleSchema.methods.setUrl = function ():void{
     this.url = this.brand + "-" + this.bmodel;
 }
+
+refvechicleSchema.methods.customSave = async function (){
+    this.url = this.brand + "-" + this.bmodel;
+    return await this.save();
+}
+
 
 export default model<IRefvehicle>('refvehicle',refvechicleSchema);
