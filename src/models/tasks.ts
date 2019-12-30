@@ -1,4 +1,18 @@
-import {Schema, model} from "mongoose";
+import {Schema, model, Document} from "mongoose";
+
+interface ITask extends Document{
+    task:String,
+    tag:String,
+    refAllowed:[
+        Schema.Types.ObjectId
+    ],
+    price:Number,
+    estimatedTime:{
+        "days":Number,
+        "hours":Number,
+        "minutes":Number
+    }
+}
 
 const taskSchema = new Schema({
     task:{type:String, required: true},
@@ -7,5 +21,12 @@ const taskSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:'refvehicle'
     }],
-    price:{type:Number, required:true}
+    price:{type:Number, required:true},
+    estimatedTime:{
+        "days":{type:Number},
+        "hours":{type:Number},
+        "minutes":{type:Number}
+    }
 });
+
+export default model<ITask>('tasks', taskSchema);

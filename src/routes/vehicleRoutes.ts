@@ -12,7 +12,7 @@ class VehicleRouter{
 
     routes(){
         this.router.post('/ref', vehicleControllers.saveRefvehicle);
-        this.router.post('/vehicle',vehicleControllers.registVehicle);
+        this.router.post('/regist',vehicleControllers.registVehicle);
         this.router.get('/',vehicleControllers.getVehicles);
     }
 }
