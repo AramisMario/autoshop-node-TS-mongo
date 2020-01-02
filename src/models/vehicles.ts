@@ -9,7 +9,7 @@ interface IVehicle extends Document{
 
 const vehicleSchema = new Schema({
     licenseplate:{type:String,required:true, unique:true},
-    refvehicle:{type:Schema.Types.ObjectId, ref:'refvehicle'},
+    refvehicle:{type:Schema.Types.ObjectId, ref:'refvehicles'},
 });
 
 

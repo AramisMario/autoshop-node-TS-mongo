@@ -28,7 +28,7 @@ class CustomerControllers{
     }
 
     async getCustomers(req:Request, res:Response){
-        const customers = await Customers.find();
+        const customers = await Customers.find().populate({path:'vehicles',populate:{path:'refvehicle',model:'refvehicles'}});
         res.json(customers);
     }
 

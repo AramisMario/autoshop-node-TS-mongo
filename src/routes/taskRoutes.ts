@@ -9,7 +9,7 @@ class TaskRouter{
     }
 
     routes(){
-        this.router.get('/');
+        this.router.get('/',taskController.allTask);
         this.router.post('/',taskController.saveTask);
     }
 }

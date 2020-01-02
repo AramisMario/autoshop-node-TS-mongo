@@ -24,4 +24,4 @@ refvechicleSchema.methods.customSave = async function (){
 }
 
 
-export default model<IRefvehicle>('refvehicle',refvechicleSchema);
+export default model<IRefvehicle>('refvehicles',refvechicleSchema);

@@ -26,4 +26,4 @@ receptionistSchema.methods.encryptPassword = async (password:String):Promise<Str
     return Bcrypt.hash(password,salt);
 }
 
-export default model<IReceptionist>('receptionist',receptionistSchema);
+export default model<IReceptionist>('receptionists',receptionistSchema);

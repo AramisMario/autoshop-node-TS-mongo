@@ -3,9 +3,8 @@ import {Schema, model, Document} from "mongoose";
 interface ITask extends Document{
     task:String,
     tag:String,
-    refAllowed:[
-        Schema.Types.ObjectId
-    ],
+    refAllowed:[Schema.Types.ObjectId],
+    allRef?:String,
     price:Number,
     estimatedTime:{
         "days":Number,
@@ -17,10 +16,8 @@ interface ITask extends Document{
 const taskSchema = new Schema({
     task:{type:String, required: true},
     tag:{type:String},
-    refAllowed:[{
-        type:Schema.Types.ObjectId,
-        ref:'refvehicle'
-    }],
+    refAllowed:[{type:Schema.Types.ObjectId, ref:'refvehicles'}],
+    allRef:String,
     price:{type:Number, required:true},
     estimatedTime:{
         "days":{type:Number},

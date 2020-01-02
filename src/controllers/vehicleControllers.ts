@@ -18,16 +18,16 @@ class VehicleControllers{
         if (customer != null){
 
             const refv = await Refvehicle.findOne({brand:brand, bmodel:bmodel});
-            let refUrl:String = "";
+            let refid:String = "";
             if (refv == null){
                 const newRfv =  new Refvehicle({brand,bmodel});
                 newRfv.customSave();
-                refUrl = newRfv.url;
+                refid = newRfv.id;
             }else{
-                refUrl = refv.url;
+                refid = refv.id;
             }
 
-            const newVehicle = new Vehicles({licenseplate,refUrl});
+            const newVehicle = new Vehicles({licenseplate,refvehicle:refid});
             try{
                 await newVehicle.save();
             }catch(error){
