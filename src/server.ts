@@ -7,6 +7,7 @@ import customerRouter from "./routes/customerRoutes";
 import vehicleRouter from  "./routes/vehicleRoutes";
 import taskRouter from "./routes/taskRoutes";
 import adminRouter from "./routes/adminRoutes";
+import serviceRouter from "./routes/serviceRoutes";
 class Server{
 
     app:express.Application;
@@ -41,6 +42,7 @@ class Server{
         this.app.use('/api/vehicles',vehicleRouter);
         this.app.use('/api/tasks',taskRouter);
         this.app.use('/api/admin',adminRouter);
+        this.app.use('/api/services',serviceRouter);
     }
 
     start(){

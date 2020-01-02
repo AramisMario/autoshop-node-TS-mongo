@@ -32,11 +32,11 @@ class VehicleControllers{
                 await newVehicle.save();
             }catch(error){
                 res.json({"message":error.message,"custom":"el vehiculo ya existe"});
-             }
-
+            }
             customer["vehicles"].push(newVehicle.id);
             customer.save();
             }else{
+                
                 res.json({"message":"el usuario no existe"});
             }
 
