@@ -2,31 +2,6 @@ import Customers from "../models/customers";
 import {Response, Request} from "express";
 class CustomerControllers{
 
-    async saveCustomer(req:Request, res:Response){
-        const {
-            identificationnumber, 
-            firstname,
-            lastname, 
-            email,
-            password,
-            vehicles,
-            } = req.body;
-
-        const customer = new Customers({
-            identificationnumber,
-            firstname,
-            lastname,
-            email,
-            password,
-            vehicles
-        }); 
-
-        customer.password = await customer.encryptPassword(customer.password);
-        customer.setUrl();
-        const newC = await customer.save();
-        res.json(newC);
-    }
-
     async getCustomers(req:Request, res:Response){
         const customers = await Customers.find().populate({path:'vehicles',populate:{path:'refvehicle',model:'refvehicles'}});
         res.json(customers);

@@ -3,13 +3,14 @@ import Bcrypt from "bcrypt";
 
 
 interface IReceptionist extends Document{
-    identificationnumber:String,
-    firstname:String,
-    lastname:String,
-    email:String,
-    password:String,
-    socialsecuritynumber:String,
-    encryptPassword(password:String):Promise<String>
+    identificationnumber:string,
+    firstname:string,
+    lastname:string,
+    email:string,
+    password:string,
+    socialsecuritynumber:string,
+    encryptPassword(password:string):Promise<string>,
+    validatePassword(password:string):Promise<boolean>
 }
 
 const receptionistSchema = new Schema({
@@ -21,9 +22,13 @@ const receptionistSchema = new Schema({
     socialsecuritynumber:{type:String, required:true, unique:true}
 });
 
-receptionistSchema.methods.encryptPassword = async (password:String):Promise<String> =>  {
+receptionistSchema.methods.encryptPassword = async (password:string):Promise<string> =>  {
     const salt = await Bcrypt.genSalt(10);
     return Bcrypt.hash(password,salt);
+}
+
+receptionistSchema.methods.validatePassword = async function (password:string):Promise<boolean>{
+    return Bcrypt.compare(password,this.password);
 }
 
 export default model<IReceptionist>('receptionists',receptionistSchema);

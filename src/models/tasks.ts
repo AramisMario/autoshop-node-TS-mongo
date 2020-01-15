@@ -1,15 +1,15 @@
 import {Schema, model, Document} from "mongoose";
 
 interface ITask extends Document{
-    task:String,
-    tag:String,
+    task:string,
+    tag:string,
     refAllowed:[Schema.Types.ObjectId],
-    allRef?:String,
-    price:Number,
+    allRef?:string,
+    price:number,
     estimatedTime:{
-        "days":Number,
-        "hours":Number,
-        "minutes":Number
+        "days":number,
+        "hours":number,
+        "minutes":number
     }
 }
 

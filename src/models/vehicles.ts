@@ -2,7 +2,7 @@ import {Schema, model, Document} from "mongoose";
 
 
 interface IVehicle extends Document{
-    licenseplate:String,
+    licenseplate:string,
     refvehicle:Schema.Types.ObjectId
 
 }

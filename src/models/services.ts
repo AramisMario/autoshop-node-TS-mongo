@@ -5,12 +5,12 @@ interface IService extends Document{
     outdate:Date,
     receptionist:Schema.Types.ObjectId,
     details:{
-        description:String,
+        description:string,
         vehiclesAndTasks:[{
             vehicle:Schema.Types.ObjectId,
             tasks:[{
                 task:Schema.Types.ObjectId,
-                finished:Boolean,
+                finished:boolean,
                 mechanic:Schema.Types.ObjectId
             }]
         }]

@@ -2,17 +2,17 @@ import {Schema, model, Document} from "mongoose";
 import Bcrypt from "bcrypt";
 
 interface ICustomer extends Document{
-    identificationnumber:String,
-    firstname:String,
-    lastname:String,
-    email:String,
-    password:String,
-    url:String,
+    identificationnumber:string,
+    firstname:string,
+    lastname:string,
+    email:string,
+    password:string,
+    url:string,
     vehicles:[
         Schema.Types.ObjectId
     ],
-    encryptPassword(password:String):Promise<String>,
-    validatePassword(password:String):Promise<Boolean>,
+    encryptPassword(password:string):Promise<string>,
+    validatePassword(password:string):Promise<boolean>,
     setUrl():void
 }
 
@@ -31,12 +31,12 @@ const customerSchema = new Schema({
 
 });
 
-customerSchema.methods.encryptPassword = async (password:String):Promise<String> =>  {
+customerSchema.methods.encryptPassword = async (password:string):Promise<string> =>  {
     const salt = await Bcrypt.genSalt(10);
     return Bcrypt.hash(password,salt);
 }
 
-customerSchema.methods.validatePassword = async function (password:String):Promise<Boolean>{
+customerSchema.methods.validatePassword = async function (password:string):Promise<boolean>{
     return Bcrypt.compare(password,this.password);
 }
 

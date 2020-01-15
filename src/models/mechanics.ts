@@ -3,14 +3,15 @@ import Bcrypt from "bcrypt";
 
 
 interface IMechanic extends Document{
-    identificationnumber:String,
-    firstname:String,
-    lastname:String,
-    email:String,
-    password:String,
-    socialsecuritynumber:String,
-    skills:[String],
-    encryptPassword(password:String):Promise<String>
+    identificationnumber:string,
+    firstname:string,
+    lastname:string,
+    email:string,
+    password:string,
+    socialsecuritynumber:string,
+    skills:[string],
+    encryptPassword(password:string):Promise<string>,
+    validatePassword(password:string):Promise<boolean>
 }
 
 const mechanicSchema = new Schema({
@@ -23,9 +24,13 @@ const mechanicSchema = new Schema({
     skills:[{type:String}]
 });
 
-mechanicSchema.methods.encryptPassword = async (password:String):Promise<String> =>  {
+mechanicSchema.methods.encryptPassword = async (password:string):Promise<string> =>  {
     const salt = await Bcrypt.genSalt(10);
     return Bcrypt.hash(password,salt);
+}
+
+mechanicSchema.methods.validatePassword = async function (password:string):Promise<boolean>{
+    return Bcrypt.compare(password,this.password);
 }
 
 export default model<IMechanic>('mechanics',mechanicSchema);

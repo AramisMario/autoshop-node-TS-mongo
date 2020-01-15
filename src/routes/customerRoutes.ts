@@ -11,7 +11,6 @@ class CustomerRouter{
     routes(){
         this.router.get('/',customerControllers.getCustomers);
         this.router.get('/:url',customerControllers.getCustomer);
-        this.router.post('/',customerControllers.saveCustomer);
     }
 }
 

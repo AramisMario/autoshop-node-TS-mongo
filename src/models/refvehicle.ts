@@ -1,9 +1,9 @@
 import {Schema, model, Document} from "mongoose";
 
 interface IRefvehicle extends Document{
-    brand:String,
-    bmodel:String
-    url:String,
+    brand:string,
+    bmodel:string
+    url:string,
     setUrl():void,
     customSave():void
 }
